@@ -61,10 +61,10 @@ struct TestGeometry: View {
     var body: some View {
 		GeometryReader { geometry in
 			Path { path in
-				var width: CGFloat = 100.0
+				var width: CGFloat = 300.0
 				let height = width
 				let xScale: CGFloat = 0.832
-				let xOffset = (width * (1.0 - xScale)) / 2.0
+				let xOffset = (width * (1.0 - xScale))
 				width *= xScale
 				path.move(to: CGPoint(
 							x: xOffset + width * 0.95,
@@ -72,13 +72,19 @@ struct TestGeometry: View {
 					)
 				)
 
+				//path.addLine(to: .init(x: 1.0, y: 1.0))
+				//path.addLine(to: .init(x: 500.0, y: 120.0))
+				//path.addLine(to: .init(x: 505.0, y: 140.0))
+
+
+
 				Hexagon.points.forEach {
-					path.addLine(
-						to: .init(
-							x: xOffset + width * $0.useWidth.0 * $0.xFactors.0,
-							y: height * $0.useHeight.0 * $0.yFactors.0
-						)
-					)
+				//	path.addLine(
+				//		to: .init(
+				//			x: xOffset + width * $0.useWidth.0 * $0.xFactors.0,
+				//			y: height * $0.useHeight.0 * $0.yFactors.0
+				//		)
+				//	)
 
 					path.addQuadCurve(
 						to: .init(
@@ -92,12 +98,11 @@ struct TestGeometry: View {
 					)
 				}
 			}
-			.fill(LinearGradient(
-				gradient: .init(colors: [Self.gradientStart, Self.gradientEnd]),
-				startPoint: .init(x: 0.5, y: 0),
-				endPoint: .init(x: 0.5, y: 0.6)
-			))
-			.aspectRatio(1, contentMode: .fit)
+			.fill(LinearGradient(gradient:
+					.init(colors: [Self.gradientStart, Self.gradientStart,]),
+					startPoint: .init(x: 0.5, y: 0),
+					endPoint: .init(x: 0.5, y: 0.6))
+			)
 		}
 	}
 
@@ -109,6 +114,9 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
 		Group {
 			TestGeometry()
+
+
+
 		}
     }
 }
